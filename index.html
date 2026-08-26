@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>إنشاء وتحسين المتاجر الإلكترونية — محتواي</title>
+  <meta name="description" content="إنشاء وتحسين متاجر إلكترونية على سلة وزد، بأعمال منفذة وباقات واضحة من محتواي.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://mohtaway.github.io/mohtaway-landing/">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #007E85; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
@@ -35,7 +39,13 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1100174431
    var href=a.getAttribute('href')||'';
    if(/mohtaway\.com/.test(href) && q && !/utm_source=/.test(href)){ a.setAttribute('href', href+(href.indexOf('?')>-1?'&':'?')+q); }
    if(/wa\.me|api\.whatsapp/.test(href)){
-     if(q){ try{ var u=new URL(href); var t=u.searchParams.get('text')||''; u.searchParams.set('text', t+'\n[ref:'+ (store.utm_campaign||store.utm_source||'direct') +']'); a.setAttribute('href', u.toString()); }catch(e){} }
+     if(!a.dataset.mwRef){
+       try{
+         var u=new URL(href), t=u.searchParams.get('text')||'', ref=(store.utm_campaign||store.utm_source||'direct');
+         if(!/\n\[ref:[^\]]+\]\s*$/.test(t)) t+='\n[ref:'+ref+']';
+         u.searchParams.set('text',t); a.setAttribute('href',u.toString()); a.dataset.mwRef='1';
+       }catch(e){}
+     }
      if(!a.dataset.mwT){ a.dataset.mwT='1'; a.addEventListener('click', function(){
         gtag('event','whatsapp_click',{event_category:'lead',event_label:(store.utm_campaign||'direct')});
         /* conversion label: يُفعَّل بعد إنشاء إجراء التحويل */
@@ -48,7 +58,17 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1100174431
    }
   });
  }
- addEventListener('load',function(){decorate();[600,1500,3000].forEach(function(t){setTimeout(decorate,t)});});
+ var decorateScheduled=false;
+ var linkObserver=new MutationObserver(function(){
+   if(decorateScheduled) return;
+   decorateScheduled=true;
+   setTimeout(function(){decorateScheduled=false;decorate();},50);
+ });
+ addEventListener('load',function(){
+   decorate();
+   linkObserver.observe(document.documentElement,{childList:true,subtree:true});
+   [600,1500,3000].forEach(function(t){setTimeout(decorate,t)});
+ });
  var seen={};[25,50,75,100].forEach(function(){});
  addEventListener('scroll',function(){
    var p=Math.round((scrollY+innerHeight)/document.body.scrollHeight*100);

@@ -19,10 +19,10 @@
   </noscript>
 
 <!-- طبقة قياس محتواي -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=__GA4__"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHVCDKS3NR"></script>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','__GA4__');gtag('config','__AW__');
+gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1100174431');
 (function(){
  var P=new URLSearchParams(location.search), KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','wbraid','gbraid','ttclid','sclid'], store={};
  try{ var saved=JSON.parse(sessionStorage.getItem('mwutm')||'{}'); store=saved; }catch(e){}
@@ -38,7 +38,7 @@ gtag('js',new Date());gtag('config','__GA4__');gtag('config','__AW__');
      if(q){ try{ var u=new URL(href); var t=u.searchParams.get('text')||''; u.searchParams.set('text', t+'\n[ref:'+ (store.utm_campaign||store.utm_source||'direct') +']'); a.setAttribute('href', u.toString()); }catch(e){} }
      if(!a.dataset.mwT){ a.dataset.mwT='1'; a.addEventListener('click', function(){
         gtag('event','whatsapp_click',{event_category:'lead',event_label:(store.utm_campaign||'direct')});
-        gtag('event','conversion',{send_to:'__AW__/__WA_LABEL__'});
+        /* conversion label: يُفعَّل بعد إنشاء إجراء التحويل */
      }); }
    }
    if(/\/p\d{6,}|turnkey-store-launch|ecommerce-store-setup|custom-salla-store-design/.test(href) && !a.dataset.mwP){

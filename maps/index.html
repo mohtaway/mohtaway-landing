@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إضافة وتوثيق نشاطك على خرائط قوقل — محتواي</title>
+  <meta name="description" content="خدمة إنشاء ملف نشاطك على خرائط قوقل وتجهيز بياناته ومتابعة خطوات إثبات الملكية بمتطلبات واضحة من محتواي.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://mohtaway.github.io/mohtaway-landing/maps/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_SA">
+  <meta property="og:title" content="إضافة وتوثيق نشاطك على خرائط قوقل — محتواي">
+  <meta property="og:description" content="ملف نشاط مرتب، متطلبات واضحة، ومتابعة بشرية لخطوات إثبات الملكية.">
+  <meta property="og:url" content="https://mohtaway.github.io/mohtaway-landing/maps/">
+  <style>
+    :root{--ink:#0e3e41;--teal:#006b70;--teal-dark:#084b50;--teal-soft:#eaf6f6;--gold:#ffc940;--gold-ink:#6d5000;--muted:#526a6c;--line:#d8e8e8;--white:#fff;--wash:#f7fbfb;--danger:#8c4b1f;--radius:20px;--shadow:0 18px 50px rgba(8,75,80,.12)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:86px}
+    body{margin:0;font-family:"IBM Plex Sans Arabic","Tahoma",system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.75;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:min(1140px,calc(100% - 36px));margin-inline:auto}
+    .topline{height:4px;background:linear-gradient(90deg,var(--teal-dark),#28a7a8 60%,var(--gold))}
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:800;color:var(--teal-dark)}
+    .brand-mark{width:38px;height:38px;border-radius:12px;background:var(--teal);display:grid;place-items:center;box-shadow:inset 0 0 0 5px rgba(255,255,255,.12)}
+    .brand-mark::after{content:"";width:13px;height:13px;background:var(--gold);transform:rotate(45deg);border-radius:3px}
+    nav{display:flex;gap:22px;font-size:.92rem;color:var(--muted);font-weight:700}
+    nav a:hover{color:var(--teal)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:11px 22px;border-radius:14px;font-weight:800;transition:.2s;border:1px solid transparent}
+    .btn-primary{background:var(--teal);color:#fff;box-shadow:0 12px 28px rgba(0,107,112,.24)}
+    .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+    .btn-gold{background:var(--gold);color:var(--gold-ink);box-shadow:0 12px 28px rgba(255,201,64,.25)}
+    .btn-line{background:#fff;color:var(--teal-dark);border-color:var(--line)}
+    .btn-line:hover{border-color:var(--teal)}
+    .hero{position:relative;overflow:hidden;padding:72px 0 58px;background:radial-gradient(760px 460px at 88% -15%,#daf0f0 0%,transparent 70%),radial-gradient(520px 330px at -8% 110%,rgba(255,201,64,.18) 0%,transparent 68%)}
+    .hero::after{content:"";position:absolute;width:180px;height:180px;left:-70px;top:40px;border:1px solid rgba(0,107,112,.12);border-radius:44px;transform:rotate(45deg)}
+    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.06fr .94fr;gap:54px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;margin:0 0 16px;color:var(--teal);font-size:.86rem;font-weight:800}
+    .eyebrow::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 0 5px rgba(255,201,64,.16)}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(2.25rem,5.6vw,4.15rem);line-height:1.17;letter-spacing:-.035em;margin-bottom:20px}
+    h1 mark{background:linear-gradient(transparent 62%,rgba(255,201,64,.9) 62%,rgba(255,201,64,.9) 91%,transparent 91%);color:inherit;padding-inline:4px}
+    .lead{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--muted);max-width:650px;margin-bottom:26px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .micro{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px;color:var(--muted);font-size:.88rem}
+    .micro span{display:flex;align-items:center;gap:7px}
+    .micro span::before{content:"";width:7px;height:7px;background:var(--teal);border-radius:2px;transform:rotate(45deg)}
+    .map-card{background:var(--white);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:20px;position:relative}
+    .map-canvas{min-height:410px;border-radius:20px;overflow:hidden;position:relative;background-color:#e8f1ef;background-image:linear-gradient(26deg,transparent 46%,rgba(255,255,255,.8) 47%,rgba(255,255,255,.8) 54%,transparent 55%),linear-gradient(115deg,transparent 41%,rgba(255,255,255,.75) 42%,rgba(255,255,255,.75) 49%,transparent 50%),linear-gradient(0deg,rgba(0,107,112,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,107,112,.06) 1px,transparent 1px);background-size:170px 170px,220px 220px,44px 44px,44px 44px}
+    .pin{position:absolute;top:83px;left:50%;width:78px;height:78px;transform:translateX(-50%) rotate(45deg);border-radius:50% 50% 50% 8px;background:var(--teal);box-shadow:0 16px 30px rgba(0,107,112,.28)}
+    .pin::after{content:"";position:absolute;width:26px;height:26px;top:22px;left:22px;border-radius:50%;background:var(--gold)}
+    .profile-preview{position:absolute;right:18px;left:18px;bottom:18px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center}
+    .profile-logo{width:52px;height:52px;border-radius:14px;background:var(--teal-dark);display:grid;place-items:center;color:var(--gold);font-weight:900}
+    .profile-preview strong{display:block;font-size:1.02rem}
+    .profile-preview small{color:var(--muted)}
+    .status-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .status-row span{background:var(--teal-soft);border-radius:10px;padding:7px;text-align:center;color:var(--teal-dark);font-size:.76rem;font-weight:800}
+    section{padding:78px 0}
+    .section-head{max-width:720px;margin-bottom:34px}
+    .section-head h2{font-size:clamp(1.8rem,3.7vw,2.8rem);line-height:1.3;margin-bottom:12px}
+    .section-head p{color:var(--muted);font-size:1.02rem}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:#fff}
+    .card-num{width:42px;height:42px;border-radius:12px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-weight:900;margin-bottom:16px}
+    .card h3{font-size:1.08rem;margin-bottom:8px}
+    .card p{color:var(--muted);font-size:.92rem;margin-bottom:0}
+    .wash{background:var(--wash)}
+    .fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .fit{border-radius:var(--radius);padding:26px;border:1px solid var(--line);background:#fff}
+    .fit h3{font-size:1.16rem;margin-bottom:16px}
+    .fit ul{list-style:none;padding:0;margin:0;display:grid;gap:12px;color:var(--muted)}
+    .fit li{display:flex;gap:10px;align-items:flex-start}
+    .fit li::before{content:"✓";width:24px;height:24px;flex:0 0 24px;border-radius:8px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-weight:900}
+    .fit.no li::before{content:"—";background:#fff3ea;color:var(--danger)}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:step}
+    .step{position:relative;padding:24px 20px;border:1px solid var(--line);border-radius:18px;background:#fff;counter-increment:step}
+    .step::before{content:counter(step,arabic-indic);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--teal);color:var(--gold);font-weight:900;margin-bottom:15px}
+    .step h3{font-size:1rem;margin-bottom:7px}
+    .step p{color:var(--muted);font-size:.88rem;margin:0}
+    .disclosure{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:stretch}
+    .disclosure-main{background:var(--teal-dark);color:#fff;border-radius:24px;padding:30px}
+    .disclosure-main h2{font-size:clamp(1.6rem,3vw,2.25rem);margin-bottom:12px}
+    .disclosure-main p{color:rgba(255,255,255,.78);margin-bottom:0}
+    .disclosure-side{border:1px solid #f0d7bd;background:#fff8f0;border-radius:24px;padding:26px;color:#6f4427}
+    .disclosure-side strong{display:block;margin-bottom:10px}
+    .offer{border-radius:28px;background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;padding:38px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;box-shadow:var(--shadow)}
+    .offer .eyebrow{color:var(--gold)}
+    .offer h2{font-size:clamp(1.8rem,3.5vw,2.7rem);margin-bottom:10px}
+    .offer p{color:rgba(255,255,255,.78);max-width:680px;margin-bottom:0}
+    .offer-actions{display:grid;gap:10px;min-width:230px}
+    .price-note{text-align:center;font-size:.77rem;color:rgba(255,255,255,.67)}
+    .faq{max-width:820px;margin-inline:auto}
+    details{background:#fff;border:1px solid var(--line);border-radius:15px;margin-bottom:12px;padding:0 20px}
+    summary{cursor:pointer;list-style:none;font-weight:800;padding:18px 0;display:flex;justify-content:space-between;gap:16px}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";color:var(--teal);font-size:1.3rem}
+    details[open] summary::after{content:"−"}
+    details p{color:var(--muted);padding-bottom:18px;margin-bottom:0}
+    footer{background:#073f43;color:rgba(255,255,255,.72);padding:30px 0;font-size:.84rem}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .foot a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+    .sticky{display:none}
+    @media(max-width:900px){nav{display:none}.hero-grid,.disclosure{grid-template-columns:1fr}.map-card{max-width:620px;margin-inline:auto}.grid3{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr 1fr}.offer{grid-template-columns:1fr}.offer-actions{grid-template-columns:1fr 1fr;min-width:0}}
+    @media(max-width:620px){.wrap{width:min(100% - 26px,1140px)}.nav>.btn{display:none}.hero{padding-top:44px}.hero-actions .btn{width:100%}.map-canvas{min-height:350px}.grid3,.fit-grid,.process{grid-template-columns:1fr}.offer{padding:28px 20px}.offer-actions{grid-template-columns:1fr}.sticky{position:fixed;z-index:60;right:10px;left:10px;bottom:max(10px,env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:17px;box-shadow:0 18px 44px rgba(14,62,65,.2)}.sticky .btn{min-height:48px;padding:9px 15px}.sticky .btn-line{background:#1faf55;color:#fff;border-color:#1faf55}body{padding-bottom:86px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHVCDKS3NR"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+    gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1100174431');
+    (function(){
+      var P=new URLSearchParams(location.search),KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','wbraid','gbraid','ttclid','sclid'],store={};
+      try{store=JSON.parse(sessionStorage.getItem('mwutm')||'{}')}catch(e){}
+      KEYS.forEach(function(k){var v=P.get(k);if(v)store[k]=v});
+      try{sessionStorage.setItem('mwutm',JSON.stringify(store))}catch(e){}
+      function qs(){return Object.keys(store).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(store[k])}).join('&')}
+      function decorate(){
+        var q=qs();document.querySelectorAll('a[href]').forEach(function(a){
+          var href=a.getAttribute('href')||'';
+          if(/mohtaway\.com/.test(href)&&q&&!/utm_source=/.test(href))a.setAttribute('href',href+(href.indexOf('?')>-1?'&':'?')+q);
+          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwRef){try{var u=new URL(href),t=u.searchParams.get('text')||'',ref=store.utm_campaign||store.utm_source||'direct';if(!/\n\[ref:[^\]]+\]\s*$/.test(t))t+='\n[ref:'+ref+']';u.searchParams.set('text',t);a.setAttribute('href',u.toString());a.dataset.mwRef='1'}catch(e){}}
+          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwT){a.dataset.mwT='1';a.addEventListener('click',function(){gtag('event','whatsapp_click',{event_category:'lead',event_label:store.utm_campaign||'direct',service:'google_maps_setup'})})}
+          if(/p2059934520/.test(href)&&!a.dataset.mwP){a.dataset.mwP='1';a.addEventListener('click',function(){gtag('event','package_click',{event_category:'purchase_intent',event_label:'google_maps_setup'})})}
+        })
+      }
+      addEventListener('load',decorate);
+      var seen={};addEventListener('scroll',function(){var p=Math.round((scrollY+innerHeight)/document.body.scrollHeight*100);[25,50,75,90].forEach(function(m){if(p>=m&&!seen[m]){seen[m]=1;gtag('event','scroll_depth',{event_label:m+'%',service:'google_maps_setup'})}})},{passive:true});
+    })();
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","name":"إضافة وإثبات ملكية النشاط على خرائط قوقل","provider":{"@type":"Organization","name":"محتواي","url":"https://mohtaway.com/"},"areaServed":{"@type":"Country","name":"Saudi Arabia"},"serviceType":"إعداد ملف النشاط التجاري ومتابعة خطوات إثبات الملكية على خرائط قوقل","url":"https://mohtaway.github.io/mohtaway-landing/maps/"}
+  </script>
+</head>
+<body>
+  <header>
+    <div class="topline"></div>
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="محتواي"><span class="brand-mark" aria-hidden="true"></span><span>محتواي</span></a>
+      <nav aria-label="التنقل داخل الصفحة"><a href="#includes">ماذا يشمل؟</a><a href="#fit">هل يناسبك؟</a><a href="#steps">الخطوات</a><a href="#faq">الأسئلة</a></nav>
+      <a class="btn btn-primary" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر واطلب</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">إضافة النشاط وإثبات الملكية</p>
+          <h1>خلّ نشاطك <mark>واضحًا وقابلًا للوصول</mark> على خرائط قوقل.</h1>
+          <p class="lead">نرتب بيانات ملف نشاطك، نجهّز متطلبات التحقق، ونتابع معك الخطوات المطلوبة من قوقل — بنطاق واضح قبل الدفع.</p>
+          <div class="hero-actions"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر وابدأ الطلب</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%A3%D8%A8%D9%8A%20%D8%A3%D8%AA%D8%A3%D9%83%D8%AF%20%D8%A5%D8%B0%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84%20%D8%AA%D9%86%D8%A7%D8%B3%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%D9%8A">تأكد من أهلية نشاطك</a></div>
+          <div class="micro"><span>خدمة من مؤسسة محتواي</span><span>لا تغيير دون موافقتك</span><span>السعر النهائي ظاهر قبل الدفع</span></div>
+        </div>
+        <div class="map-card" aria-label="معاينة توضيحية لملف نشاط على الخريطة">
+          <div class="map-canvas"><span class="pin" aria-hidden="true"></span><div class="profile-preview"><div class="profile-logo">م</div><div><strong>اسم نشاطك التجاري</strong><small>الفئة · المدينة · ساعات العمل</small></div><div class="status-row"><span>بيانات واضحة</span><span>موقع صحيح</span><span>جاهزية تحقق</span></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="includes">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">النطاق الذي تدفع مقابله</p><h2>ملف نشاط مرتب، وليس مجرد دبوس على الخريطة.</h2><p>نغلق الفجوات التي تعطل الإضافة أو تربك العميل، ونفصل بين ما ننفذه نحن وما تقرره قوقل.</p></div>
+        <div class="grid3">
+          <article class="card"><div class="card-num">١</div><h3>إنشاء الملف أو مراجعته</h3><p>الاسم والفئة والعنوان أو نطاق الخدمة ووسائل التواصل بصورة متسقة.</p></article>
+          <article class="card"><div class="card-num">٢</div><h3>تجهيز إثبات الملكية</h3><p>نراجع المتطلبات المتاحة ونوجهك للمستندات والصور المناسبة لحالة نشاطك.</p></article>
+          <article class="card"><div class="card-num">٣</div><h3>تحسين البيانات الأساسية</h3><p>وصف واضح وساعات عمل وخدمات وصور يزوّدنا بها العميل ضمن نطاق الخدمة.</p></article>
+          <article class="card"><div class="card-num">٤</div><h3>متابعة الخطوات</h3><p>نوضح المطلوب في كل مرحلة ونتابع حتى اكتمال نطاق التنفيذ المتفق عليه.</p></article>
+          <article class="card"><div class="card-num">٥</div><h3>تسليم منظم</h3><p>تستلم حالة الملف وما تم تنفيذه وأي إجراء متبقٍ يتطلبه قرار قوقل.</p></article>
+          <article class="card"><div class="card-num">٦</div><h3>إرشادات بعد التسليم</h3><p>خطوات عملية للمحافظة على دقة الملف وتجنب التغييرات العشوائية.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wash" id="fit">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">قرار قبل الدفع</p><h2>الخدمة مناسبة لحالات محددة.</h2><p>إذا كان ملفك معلّقًا أو سبق رفضه، نحتاج تشخيص الحالة أولًا لأن له مسارًا مختلفًا.</p></div>
+        <div class="fit-grid">
+          <div class="fit"><h3>مناسبة لك إذا</h3><ul><li>عندك نشاط حقيقي وبيانات يمكن إثباتها.</li><li>تحتاج إنشاء ملف جديد أو ضبط ملف غير مكتمل.</li><li>تستطيع توفير المستندات والصور عند طلبها.</li><li>مستعد تتعاون في خطوة التحقق التي قد تتطلب ظهورك أو موقعك.</li></ul></div>
+          <div class="fit no"><h3>تحتاج تشخيصًا مختلفًا إذا</h3><ul><li>الملف معلّق أو محظور حاليًا.</li><li>البيانات لا تطابق المستندات الرسمية.</li><li>لا يوجد موقع فعلي أو نطاق خدمة مؤهل حسب نوع النشاط.</li><li>تبحث عن ضمان ترتيب أول أو موافقة فورية من قوقل.</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="steps">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">كيف يمشي الطلب؟</p><h2>أربع خطوات، وكل طرف يعرف مسؤوليته.</h2></div>
+        <div class="process"><article class="step"><h3>تطلب الخدمة</h3><p>تشاهد السعر النهائي والنطاق وتكمل الدفع من متجر محتواي.</p></article><article class="step"><h3>نراجع الحالة</h3><p>نجمع البيانات ونتأكد هل المسار إنشاء جديد أو تحسين ملف قائم.</p></article><article class="step"><h3>ننّفذ ونتابع</h3><p>نرتب الملف ونوجهك لخطوة التحقق التي تحددها قوقل.</p></article><article class="step"><h3>نسلّم الحالة</h3><p>نوثق ما تم وما بقي وأي قرار صادر من المنصة الخارجية.</p></article></div>
+      </div>
+    </section>
+
+    <section class="wash">
+      <div class="wrap disclosure"><div class="disclosure-main"><p class="eyebrow">شفافية الخدمة</p><h2>ندير التنفيذ، وقوقل تدير قرار المنصة.</h2><p>محتواي مزود خدمة مستقل. لا نتبع Google ولا نبيع موافقة منها. طريقة التحقق ومدة المراجعة والقبول النهائي تحددها Google بحسب حالة النشاط وسياساتها.</p></div><aside class="disclosure-side"><strong>قبل الطلب</strong><p>رسومك مقابل عمل محتواي في الإعداد والمتابعة. لا تشمل رسومًا حكومية أو رسوم منصة ما لم تظهر صراحة في صفحة الطلب.</p></aside></div>
+    </section>
+
+    <section>
+      <div class="wrap offer"><div><p class="eyebrow">جاهز تبدأ؟</p><h2>شاهد السعر والنطاق النهائي في صفحة الطلب.</h2><p>السعر المعروض عند الدفع هو المرجع، ويشمل ضريبة القيمة المضافة عند استحقاقها. إذا كانت حالتك معلّقة، تواصل معنا قبل الشراء لنوجهك للمسار الصحيح.</p></div><div class="offer-actions"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر واطلب</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%B9%D9%86%D8%AF%D9%8A%20%D8%B3%D8%A4%D8%A7%D9%84%20%D9%82%D8%A8%D9%84%20%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84">اسأل قبل الطلب</a><span class="price-note">لن نطلب كلمة مرور حسابك في رسالة عامة.</span></div></div>
+    </section>
+
+    <section class="wash" id="faq">
+      <div class="wrap faq"><div class="section-head"><p class="eyebrow">أسئلة شائعة</p><h2>إجابات واضحة قبل الدفع.</h2></div>
+        <details open><summary>هل تضمنون قبول الملف أو ظهوره في المركز الأول؟</summary><p>لا. ننفذ نطاق الإعداد والمتابعة باحتراف، لكن القبول وطريقة التحقق والترتيب قرارات تابعة لقوقل ولا يصح ضمانها.</p></details>
+        <details><summary>كم تستغرق الخدمة؟</summary><p>يعتمد ذلك على اكتمال بياناتك وطريقة التحقق التي تحددها قوقل. نوضح لك حالة التنفيذ وأي انتظار خارجي بدل إعطائك موعدًا غير مضمون.</p></details>
+        <details><summary>ملفي معلّق؛ هل أطلب هذه الخدمة؟</summary><p>لا تطلب مباشرة. أرسل لنا حالة التعليق أولًا، لأن فك التعليق والاستئناف خدمة مختلفة وتحتاج تشخيصًا قبل التسعير.</p></details>
+        <details><summary>ما الذي أحتاجه للبدء؟</summary><p>بيانات النشاط الصحيحة، مستندات تثبتها عند الحاجة، صور مناسبة للموقع أو النشاط، وبريد ورقم هاتف تستطيع الوصول إليهما.</p></details>
+        <details><summary>هل السعر يشمل الضريبة؟</summary><p>السعر النهائي الظاهر في متجر محتواي قبل الدفع هو المرجع، ويشمل ضريبة القيمة المضافة عند استحقاقها.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap foot"><span>محتواي — خدمات أعمال رقمية بتنفيذ واضح.</span><span><a href="https://eauthenticate.saudibusiness.gov.sa/certificate-details/0000166742">التحقق من المؤسسة</a> · <a href="https://mohtaway.com/">المتجر الرئيسي</a></span></div></footer>
+  <div class="sticky" aria-label="إجراءات سريعة"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%A3%D8%A8%D9%8A%20%D8%A3%D8%AA%D8%A3%D9%83%D8%AF%20%D8%A5%D8%B0%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84%20%D8%AA%D9%86%D8%A7%D8%B3%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%D9%8A">واتساب</a></div>
+</body>
+</html>

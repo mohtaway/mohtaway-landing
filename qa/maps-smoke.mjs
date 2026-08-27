@@ -10,6 +10,8 @@ assert.match(html, /p2059934520/);
 assert.match(html, /whatsapp_click/);
 assert.match(html, /package_click/);
 assert.match(html, /scroll_depth/);
+assert.match(html, /class="map-card" role="img" aria-label="معاينة توضيحية/);
+assert.match(html, /<nav class="sticky" aria-label="إجراءات سريعة">/);
 assert.match(html, /محتواي مزود خدمة مستقل/);
 assert.match(html, /لا نتبع Google/);
 assert.match(html, /لا يصح ضمانها/);

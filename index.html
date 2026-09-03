@@ -50,7 +50,7 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1093761270
    if(/wa\.me|api\.whatsapp/.test(href)){
      if(!a.dataset.mwRef){
        try{
-         var u=new URL(href), t=u.searchParams.get('text')||'', ref=(store.utm_campaign||store.utm_source||'direct');
+         var u=new URL(href), t=u.searchParams.get('text')||'', ref=(store.utm_source?(store.utm_source+(store.utm_campaign?':'+store.utm_campaign:'')):(store.utm_campaign||'direct'));
          if(!/\n\[ref:[^\]]+\]\s*$/.test(t)) t+='\n[ref:'+ref+']';
          u.searchParams.set('text',t); a.setAttribute('href',u.toString()); a.dataset.mwRef='1';
        }catch(e){}

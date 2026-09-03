@@ -109,7 +109,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHVCDKS3NR"></script>
   <script>
     window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-    gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1100174431');
+    gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-10937612701');
     (function(){
       var P=new URLSearchParams(location.search),KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','wbraid','gbraid','ttclid','sclid'],store={};
       try{store=JSON.parse(sessionStorage.getItem('mwutm')||'{}')}catch(e){}
@@ -120,7 +120,7 @@
         var q=qs();document.querySelectorAll('a[href]').forEach(function(a){
           var href=a.getAttribute('href')||'';
           if(/mohtaway\.com/.test(href)&&q&&!/utm_source=/.test(href))a.setAttribute('href',href+(href.indexOf('?')>-1?'&':'?')+q);
-          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwRef){try{var u=new URL(href),t=u.searchParams.get('text')||'',ref=store.utm_campaign||store.utm_source||'direct';if(!/\n\[ref:[^\]]+\]\s*$/.test(t))t+='\n[ref:'+ref+']';u.searchParams.set('text',t);a.setAttribute('href',u.toString());a.dataset.mwRef='1'}catch(e){}}
+          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwRef){try{var u=new URL(href),t=u.searchParams.get('text')||'',ref=store.utm_source?(store.utm_source+(store.utm_campaign?':'+store.utm_campaign:'')):(store.utm_campaign||'direct');if(!/\n\[ref:[^\]]+\]\s*$/.test(t))t+='\n[ref:'+ref+']';u.searchParams.set('text',t);a.setAttribute('href',u.toString());a.dataset.mwRef='1'}catch(e){}}
           if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwT){a.dataset.mwT='1';a.addEventListener('click',function(){gtag('event','whatsapp_click',{event_category:'lead',event_label:store.utm_campaign||'direct',service:'google_maps_setup'})})}
           if(/p2059934520/.test(href)&&!a.dataset.mwP){a.dataset.mwP='1';a.addEventListener('click',function(){gtag('event','package_click',{event_category:'purchase_intent',event_label:'google_maps_setup'})})}
         })

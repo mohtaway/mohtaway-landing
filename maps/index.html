@@ -121,7 +121,7 @@
           var href=a.getAttribute('href')||'';
           if(/mohtaway\.com/.test(href)&&q&&!/utm_source=/.test(href))a.setAttribute('href',href+(href.indexOf('?')>-1?'&':'?')+q);
           if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwRef){try{var u=new URL(href),t=u.searchParams.get('text')||'',ref=store.utm_source?(store.utm_source+(store.utm_campaign?':'+store.utm_campaign:'')):(store.utm_campaign||'direct');if(!/\n\[ref:[^\]]+\]\s*$/.test(t))t+='\n[ref:'+ref+']';u.searchParams.set('text',t);a.setAttribute('href',u.toString());a.dataset.mwRef='1'}catch(e){}}
-          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwT){a.dataset.mwT='1';a.addEventListener('click',function(){gtag('event','whatsapp_click',{event_category:'lead',event_label:store.utm_campaign||'direct',service:'google_maps_setup'})})}
+          if(/wa\.me|api\.whatsapp/.test(href)&&!a.dataset.mwT){a.dataset.mwT='1';a.addEventListener('click',function(){gtag('event','whatsapp_click',{event_category:'lead',event_label:store.utm_campaign||'direct',service:'google_maps_setup'});gtag('event','conversion',{send_to:'AW-10937612701/pCoYCPnyrO4cEJ3zut8o'})})}
           if(/p2059934520/.test(href)&&!a.dataset.mwP){a.dataset.mwP='1';a.addEventListener('click',function(){gtag('event','package_click',{event_category:'purchase_intent',event_label:'google_maps_setup'})})}
         })
       }

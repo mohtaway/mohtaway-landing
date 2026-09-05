@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>إضافة وتوثيق نشاطك على خرائط قوقل — محتواي</title>
   <meta name="description" content="خدمة إنشاء ملف نشاطك على خرائط قوقل وتجهيز بياناته ومتابعة خطوات إثبات الملكية بمتطلبات واضحة من محتواي.">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="noindex,follow">
   <link rel="canonical" href="https://mohtaway.github.io/mohtaway-landing/maps/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_SA">
@@ -125,7 +125,7 @@
           if(/p2059934520/.test(href)&&!a.dataset.mwP){a.dataset.mwP='1';a.addEventListener('click',function(){gtag('event','package_click',{event_category:'purchase_intent',event_label:'google_maps_setup'})})}
         })
       }
-      addEventListener('load',decorate);
+      if(document.readyState!=='loading'){decorate()}else{document.addEventListener('DOMContentLoaded',decorate)}addEventListener('load',decorate);
       var seen={};addEventListener('scroll',function(){var p=Math.round((scrollY+innerHeight)/document.body.scrollHeight*100);[25,50,75,90].forEach(function(m){if(p>=m&&!seen[m]){seen[m]=1;gtag('event','scroll_depth',{event_label:m+'%',service:'google_maps_setup'})}})},{passive:true});
     })();
   </script>
@@ -137,7 +137,7 @@
   <header>
     <div class="topline"></div>
     <div class="wrap nav">
-      <a class="brand" href="../" aria-label="محتواي"><span class="brand-mark" aria-hidden="true"></span><span>محتواي</span></a>
+      <a class="brand" href="https://mohtaway.com/" aria-label="محتواي"><span class="brand-mark" aria-hidden="true"></span><span>محتواي</span></a>
       <nav aria-label="التنقل داخل الصفحة"><a href="#includes">ماذا يشمل؟</a><a href="#fit">هل يناسبك؟</a><a href="#steps">الخطوات</a><a href="#faq">الأسئلة</a></nav>
       <a class="btn btn-primary" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر واطلب</a>
     </div>
@@ -151,7 +151,7 @@
           <h1>خلّ نشاطك <mark>واضحًا وقابلًا للوصول</mark> على خرائط قوقل.</h1>
           <p class="lead">نرتب بيانات ملف نشاطك، نجهّز متطلبات التحقق، ونتابع معك الخطوات المطلوبة من قوقل — بنطاق واضح قبل الدفع.</p>
           <div class="hero-actions"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر وابدأ الطلب</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%A3%D8%A8%D9%8A%20%D8%A3%D8%AA%D8%A3%D9%83%D8%AF%20%D8%A5%D8%B0%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84%20%D8%AA%D9%86%D8%A7%D8%B3%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%D9%8A">تأكد من أهلية نشاطك</a></div>
-          <div class="micro"><span>خدمة من مؤسسة محتواي</span><span>لا تغيير دون موافقتك</span><span>السعر النهائي ظاهر قبل الدفع</span></div>
+          <div class="micro"><span>مؤسسة موثّقة رسمياً</span><span>229 طلباً لهذه الخدمة</span><span>التقسيط عبر تابي متاح</span><span>السعر النهائي ظاهر قبل الدفع</span></div>
         </div>
         <div class="map-card" role="img" aria-label="معاينة توضيحية لملف نشاط على الخريطة">
           <div class="map-canvas"><span class="pin" aria-hidden="true"></span><div class="profile-preview"><div class="profile-logo">م</div><div><strong>اسم نشاطك التجاري</strong><small>الفئة · المدينة · ساعات العمل</small></div><div class="status-row"><span>بيانات واضحة</span><span>موقع صحيح</span><span>جاهزية تحقق</span></div></div></div>
@@ -191,17 +191,17 @@
     </section>
 
     <section class="wash">
-      <div class="wrap disclosure"><div class="disclosure-main"><p class="eyebrow">شفافية الخدمة</p><h2>ندير التنفيذ، وقوقل تدير قرار المنصة.</h2><p>محتواي مزود خدمة مستقل. لا نتبع Google ولا نبيع موافقة منها. طريقة التحقق ومدة المراجعة والقبول النهائي تحددها Google بحسب حالة النشاط وسياساتها.</p></div><aside class="disclosure-side"><strong>قبل الطلب</strong><p>رسومك مقابل عمل محتواي في الإعداد والمتابعة. لا تشمل رسومًا حكومية أو رسوم منصة ما لم تظهر صراحة في صفحة الطلب.</p></aside></div>
+      <div class="wrap disclosure"><div class="disclosure-main"><p class="eyebrow">شفافية الخدمة</p><h2>ندير التنفيذ، وقوقل تدير قرار المنصة.</h2><p>محتواي مزود خدمة مستقل. لا نتبع Google ولا نبيع موافقة منها. طريقة التحقق ومدة المراجعة والقبول النهائي تحددها Google بحسب حالة النشاط وسياساتها. ملف النشاط يُنشأ باسمك ويبقى ملكك بالكامل؛ نعمل عليه بصلاحية «مدير» تمنحها أنت وتسحبها متى شئت.</p></div><aside class="disclosure-side"><strong>قبل الطلب</strong><p>إنشاء ملف النشاط على قوقل مجاني من قوقل نفسها. رسومك مقابل عمل محتواي في الإعداد والمتابعة فقط. لا تشمل رسومًا حكومية أو رسوم منصة ما لم تظهر صراحة في صفحة الطلب.</p></aside></div>
     </section>
 
     <section>
-      <div class="wrap offer"><div><p class="eyebrow">جاهز تبدأ؟</p><h2>شاهد السعر والنطاق النهائي في صفحة الطلب.</h2><p>السعر المعروض عند الدفع هو المرجع، ويشمل ضريبة القيمة المضافة عند استحقاقها. إذا كانت حالتك معلّقة، تواصل معنا قبل الشراء لنوجهك للمسار الصحيح.</p></div><div class="offer-actions"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر واطلب</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%B9%D9%86%D8%AF%D9%8A%20%D8%B3%D8%A4%D8%A7%D9%84%20%D9%82%D8%A8%D9%84%20%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84">اسأل قبل الطلب</a><span class="price-note">لن نطلب كلمة مرور حسابك في رسالة عامة.</span></div></div>
+      <div class="wrap offer"><div><p class="eyebrow">جاهز تبدأ؟</p><h2>شاهد السعر والنطاق النهائي في صفحة الطلب.</h2><p>السعر المعروض عند الدفع هو المرجع، ويشمل ضريبة القيمة المضافة عند استحقاقها. إذا كانت حالتك معلّقة، تواصل معنا قبل الشراء لنوجهك للمسار الصحيح.</p></div><div class="offer-actions"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر واطلب</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%B9%D9%86%D8%AF%D9%8A%20%D8%B3%D8%A4%D8%A7%D9%84%20%D9%82%D8%A8%D9%84%20%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84">اسأل قبل الطلب</a><span class="price-note">لا نطلب كلمة مرور حسابك ولا رمز التحقق إطلاقاً — خطوات الدخول تنفذها أنت بنفسك.</span></div></div>
     </section>
 
     <section class="wash" id="faq">
       <div class="wrap faq"><div class="section-head"><p class="eyebrow">أسئلة شائعة</p><h2>إجابات واضحة قبل الدفع.</h2></div>
         <details open><summary>هل تضمنون قبول الملف أو ظهوره في المركز الأول؟</summary><p>لا. ننفذ نطاق الإعداد والمتابعة باحتراف، لكن القبول وطريقة التحقق والترتيب قرارات تابعة لقوقل ولا يصح ضمانها.</p></details>
-        <details><summary>كم تستغرق الخدمة؟</summary><p>يعتمد ذلك على اكتمال بياناتك وطريقة التحقق التي تحددها قوقل. نوضح لك حالة التنفيذ وأي انتظار خارجي بدل إعطائك موعدًا غير مضمون.</p></details>
+        <details><summary>كم تستغرق الخدمة؟</summary><p>تجهيزنا (إنشاء الملف وترتيبه وبدء إثبات الملكية) يكتمل عادةً خلال 7–15 يوم عمل من اكتمال بياناتك. أما مدة تحقق قوقل النهائية فتحددها قوقل وقد تزيد، ونبلغك بحالة كل خطوة بدل موعد غير مضمون.</p></details>
         <details><summary>ملفي معلّق؛ هل أطلب هذه الخدمة؟</summary><p>لا تطلب مباشرة. أرسل لنا حالة التعليق أولًا، لأن فك التعليق والاستئناف خدمة مختلفة وتحتاج تشخيصًا قبل التسعير.</p></details>
         <details><summary>ما الذي أحتاجه للبدء؟</summary><p>بيانات النشاط الصحيحة، مستندات تثبتها عند الحاجة، صور مناسبة للموقع أو النشاط، وبريد ورقم هاتف تستطيع الوصول إليهما.</p></details>
         <details><summary>هل السعر يشمل الضريبة؟</summary><p>السعر النهائي الظاهر في متجر محتواي قبل الدفع هو المرجع، ويشمل ضريبة القيمة المضافة عند استحقاقها.</p></details>
@@ -209,7 +209,7 @@
     </section>
   </main>
 
-  <footer><div class="wrap foot"><span>محتواي — خدمات أعمال رقمية بتنفيذ واضح.</span><span><a href="https://eauthenticate.saudibusiness.gov.sa/certificate-details/0000166742">التحقق من المؤسسة</a> · <a href="https://mohtaway.com/">المتجر الرئيسي</a></span></div></footer>
+  <footer><div class="wrap foot"><span>محتواي — خدمات أعمال رقمية بتنفيذ واضح.</span><span><a href="https://eauthenticate.saudibusiness.gov.sa/certificate-details/0000166742">التحقق من المؤسسة</a> · <a href="https://mohtaway.com/سياسة-الخصوصية/page-1636777905">سياسة الخصوصية</a> · <a href="https://mohtaway.com/">المتجر الرئيسي</a></span></div></footer>
   <nav class="sticky" aria-label="إجراءات سريعة"><a class="btn btn-gold" href="https://mohtaway.com/google-maps-business-setup/p2059934520">شاهد السعر</a><a class="btn btn-line" href="https://wa.me/966533672708?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D8%AD%D8%AA%D9%88%D8%A7%D9%8A%D8%8C%20%D8%A3%D8%A8%D9%8A%20%D8%A3%D8%AA%D8%A3%D9%83%D8%AF%20%D8%A5%D8%B0%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AE%D8%B1%D8%A7%D8%A6%D8%B7%20%D9%82%D9%88%D9%82%D9%84%20%D8%AA%D9%86%D8%A7%D8%B3%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%D9%8A">واتساب</a></nav>
 </body>
 </html>

@@ -37,8 +37,11 @@
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-10937612701');
 (function(){
- var P=new URLSearchParams(location.search), KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','wbraid','gbraid','ttclid','sclid'], store={};
- try{ var saved=JSON.parse(sessionStorage.getItem('mwutm')||'{}'); store=saved; }catch(e){}
+ var P=new URLSearchParams(location.search), KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','wbraid','gbraid','ttclid','sclid','fbclid'], store={};
+ var newTouch=['utm_source','utm_campaign','gclid','wbraid','gbraid','ttclid','sclid','fbclid'].some(function(k){return !!P.get(k);});
+ try{ var saved=JSON.parse(sessionStorage.getItem('mwutm')||'{}');
+  if(!newTouch && saved && typeof saved==='object') KEYS.forEach(function(k){if(typeof saved[k]==='string' && saved[k]) store[k]=saved[k];});
+ }catch(e){}
  KEYS.forEach(function(k){ var v=P.get(k); if(v) store[k]=v; });
  try{ sessionStorage.setItem('mwutm', JSON.stringify(store)); }catch(e){}
  function qs(){ return Object.keys(store).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(store[k])}).join('&'); }
@@ -46,7 +49,16 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');gtag('config','AW-1093761270
   var q=qs();
   document.querySelectorAll('a[href]').forEach(function(a){
    var href=a.getAttribute('href')||'';
-   if(/mohtaway\.com/.test(href) && q && !/utm_source=/.test(href)){ a.setAttribute('href', href+(href.indexOf('?')>-1?'&':'?')+q); }
+   try{
+    var target=new URL(href,location.href), host=target.hostname.toLowerCase();
+    var destinationSource=target.searchParams.get('utm_source');
+    var destinationCampaign=target.searchParams.get('utm_campaign');
+    var differentCampaign=(destinationSource && destinationSource!==store.utm_source) || (destinationCampaign && destinationCampaign!==store.utm_campaign);
+    if(target.protocol==='https:' && (host==='mohtaway.com' || host==='www.mohtaway.com') && q && !differentCampaign){
+     KEYS.forEach(function(k){if(store[k] && !target.searchParams.has(k)) target.searchParams.set(k,store[k]);});
+     if(target.toString()!==href) a.setAttribute('href',target.toString());
+    }
+   }catch(e){}
    if(/wa\.me|api\.whatsapp/.test(href)){
      if(!a.dataset.mwRef){
        try{

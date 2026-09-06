@@ -8,15 +8,14 @@
   dialog.setAttribute('aria-labelledby', 'store-quote-title');
   dialog.innerHTML = `
     <button type="button" class="quote-close" aria-label="إغلاق طلب العرض">×</button>
-    <h2 id="store-quote-title">خلّنا نعرف مشروعك</h2>
-    <p>تفاصيل بسيطة تساعدنا نرشح لك الباقة ونجهز عرضًا مناسبًا.</p>
+    <h2 id="store-quote-title">خلّنا نعرف مشروعك<br><span>ونجهز لك عرض مناسب</span></h2>
+    <p>تفاصيل بسيطة تساعدنا نرشح لك الباقة.</p>
     <form id="store-quote-form">
       <label>اسمك<input name="name" autocomplete="given-name" maxlength="60" required></label>
       <label>وش نشاط متجرك؟<input name="activity" placeholder="مثل: عطور، ملابس، هدايا" maxlength="120" required></label>
       <label>وش تحتاج؟<select name="need" required><option value="">اختر حالة متجرك</option><option>إنشاء متجر جديد</option><option>تطوير متجر قائم</option><option>أحتاج تحديد الخدمة المناسبة</option></select></label>
       <label>ميزانيتك التقريبية للتنفيذ<select name="budget" required><option value="">اختر النطاق المناسب</option><option>أقل من ١٬٠٠٠ ريال</option><option>١٬٠٠٠–١٬٩٩٩ ريال</option><option>٢٬٠٠٠–٣٬٤٩٩ ريال</option><option>٣٬٥٠٠ ريال فأكثر</option><option>أحتاج عرضًا لتحديد الميزانية</option></select></label>
       <label>متى تبي تبدأ؟<select name="timing" required><option value="">اختر وقتًا تقريبيًا</option><option>خلال أسبوعين</option><option>خلال شهر</option><option>أستكشف الخيارات حاليًا</option></select></label>
-      <label class="quote-consent"><input type="checkbox" name="measurement">أوافق اختياريًا على مشاركة بيانات مصدر زيارتي مع Google لقياس نتيجة الإعلان. رفضي لا يؤثر على الخدمة.</label>
       <p class="quote-note">سنجهز التفاصيل في رسالة واتساب؛ يصلنا الطلب بعد أن ترسلها بنفسك. نستخدم بياناتك للرد على طلبك، ورقم التواصل يظهر لنا عند إرسال الرسالة.</p>
       <button type="submit" class="quote-submit">تابع طلب العرض على واتساب ←</button>
       <p id="quote-status" role="status" aria-live="polite"></p>
@@ -57,7 +56,7 @@
     if (fields.some(key => !clean(values.get(key)))) { status.textContent = 'أكمل تفاصيل الطلب أولًا.'; return; }
     const ref = requestId || (requestId = newId());
     const source = attribution();
-    const consent = values.get('measurement') === 'on';
+    const consent = false; // No customer opt-in is collected by this form.
     const lines = ['مرحبًا محتواي، أطلب عرضًا لخدمة المتاجر.',
       'الاسم: ' + clean(values.get('name')), 'النشاط: ' + clean(values.get('activity')),
       'الخدمة المطلوبة: ' + clean(values.get('need')), 'الميزانية: ' + clean(values.get('budget')),

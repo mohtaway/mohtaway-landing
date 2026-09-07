@@ -1,2 +1,23 @@
+# صفحة باقات المتاجر — محتواي
+# مسموح للجميع، مع تصريح واضح لزواحف البحث في منصات الذكاء الاصطناعي.
+
 User-agent: *
 Allow: /
+
+# زواحف البحث في منصات الإجابة — مسموح لها صراحةً
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://mohtaway.github.io/mohtaway-landing/sitemap.xml

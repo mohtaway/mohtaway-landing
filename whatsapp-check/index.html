@@ -130,6 +130,15 @@ h2.q{font-size:1.28rem;line-height:1.55;letter-spacing:-.015em;margin-bottom:16p
 .checklist li::before{content:"✓";flex:0 0 22px;width:22px;height:22px;border-radius:7px;
   background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;
   font-weight:700;font-size:.8rem;margin-top:3px}
+.cost{border:1px solid var(--teal-line);background:var(--teal-soft);border-radius:14px;
+  padding:14px 16px;margin:0 0 18px}
+.cost h3{font-size:.95rem;margin:0 0 10px;color:var(--teal-dark)}
+.cost dl{margin:0;display:grid;gap:11px}
+.cost dl>div{display:grid;gap:2px}
+.cost dt{font-size:.8rem;color:var(--muted);font-weight:600}
+.cost dd{margin:0;font-size:.98rem;font-weight:700;line-height:1.55}
+.cost dd span{display:block;font-size:.82rem;font-weight:400;color:var(--muted);
+  line-height:1.65;margin-top:3px}
 .actions{display:grid;gap:10px}
 .restart{background:none;border:0;cursor:pointer;color:var(--muted);font-size:.85rem;
   font-weight:600;padding:8px;width:100%;margin-top:4px}
@@ -189,6 +198,7 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');
     <p class="step-no" id="stepno"></p>
     <h2 class="q" id="qtext"></h2>
     <div class="opts" id="opts"></div>
+    <p class="note hide" id="q-hint"></p>
     <button class="back hide" id="btn-back">رجوع</button>
   </section>
 
@@ -225,6 +235,13 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');
     <p class="verdict-body" id="v-body"></p>
     <p class="reason hide" id="v-reason"><b>السبب</b><span id="v-reason-t"></span></p>
     <ul class="checklist hide" id="v-list"></ul>
+    <div class="cost hide" id="v-cost">
+      <h3>وش تدفع بالضبط؟</h3>
+      <dl>
+        <div><dt>رسوم محتواي</dt><dd id="v-cost-us"></dd></div>
+        <div><dt>اشتراك Meta للشارة</dt><dd>شهري متكرر، يبدأ من 45.99 ر.س لكل ملف<span>يُدفع لـ Meta من داخل تطبيقك، لا لنا. والسعر يبدأ من هذا الحد ويختلف بحسب الباقة، وMeta تسمّيه ميزة تجريبية وقد تغيّره.</span></dd></div>
+      </dl>
+    </div>
     <div class="actions" id="v-actions"></div>
     <p class="btn-note hide" id="v-note"></p>
     <button class="restart" id="btn-restart">ابدأ الفحص من جديد</button>
@@ -275,6 +292,7 @@ var QS=[
    {k:'both',t:'الاثنين'},
    {k:'unknown',t:'ما أعرف الفرق',dim:1}]}
 ];
+var HINTS={q8:'الشارة الزرقاء تجي باشتراك شهري على تطبيق واتساب الأعمال العادي. أما API فمنصة للشركات ترسل حملات وردود آلية، ولها شارة ثانية بلا اشتراك لكن بشروط أصعب. ما تعرف؟ اختر «ما أعرف الفرق» ونوضحها لك بلا رسوم.'};
 var SHOT_Q='تشوف كلمة Meta Verified بالشاشة؟';
 var SHOT_O=[{k:'yes',t:'نعم، أشوف Meta Verified'},{k:'no',t:'لا، ما فيه هذا السطر'},
             {k:'unsure',t:'مو متأكد',dim:1}];
@@ -368,6 +386,8 @@ function renderQ(){
     b.onclick=function(){answer(q.id,o.k)};
     box.appendChild(b);
   });
+  if(HINTS[q.id]){$('q-hint').textContent=HINTS[q.id];$('q-hint').classList.remove('hide')}
+  else $('q-hint').classList.add('hide');
   $('btn-back').classList[idx===0?'add':'remove']('hide');
   show('s-q');
 }
@@ -404,14 +424,16 @@ function back(){
 
 var V={
  ready:{cls:'b-ready',badge:'جاهز للتوثيق',title:'حسابك جاهز للتقديم',
-   body:'حسابك جاهز. باقي خطوة واحدة نسويها معك: تقديم طلب Meta Verified ومتابعته. رسوم خدمتنا 350 ر.س، واشتراك Meta الشهري يُدفع لـ Meta من داخل تطبيقك. القرار النهائي لـ Meta.',
+   body:'حسابك جاهز. باقي خطوة واحدة نسويها معك: تقديم طلب Meta Verified ومتابعته. القرار النهائي لـ Meta.',
+   cost:'350 ر.س مرة واحدة — للتقديم والمتابعة',
    btn:'ابدأ التوثيق — 350 ر.س',
    note:'بصفحة الطلب اختر: «حساب واتساب بزنس به خيار meta verified في الإعدادات (350 ر.س)». وبعد الطلب أرسل لنا اللقطة على واتساب، ونؤكد المسار قبل البدء.'},
  prep:{cls:'b-prep',badge:'يحتاج تجهيز',title:'حسابك يحتاج تجهيز قبل التقديم',
+   cost:'600 ر.س مرة واحدة — للتجهيز والتقديم والمتابعة',
    btn:'جهّزوا حسابي — 600 ر.س',
    note:'بصفحة الطلب اختر: «الحساب واتساب بزنس لا يحتوي على خيار Meta verified (600 ر.س)».'},
  api:{cls:'b-api',badge:'مسار API',title:'مسارك عبر منصة واتساب للأعمال',
-   body:'اللي تبيه يمر عبر منصة واتساب للأعمال (API)، ومسارها مختلف: حافظة أعمال موثقة + إعداد الرقم على المنصة. رسوم الإعداد 850 ر.س، وتكاليف الرسائل لدى Meta منفصلة.',
+   body:'اللي تبيه يمر عبر منصة واتساب للأعمال (API)، ومسارها مختلف: حافظة أعمال موثقة + إعداد الرقم على المنصة. رسوم الإعداد 850 ر.س، وتكاليف الرسائل لدى Meta منفصلة. وبهذا المسار توجد شارة ثانية اسمها «الحساب التجاري الرسمي» بلا اشتراك شهري، لكن Meta تشترط لها حضورًا إعلاميًا للعلامة والقبول تقديري منها وحدها — نوضح لك إن كانت في متناولك قبل البدء.',
    btn:'ابدأ مسار API — 850 ر.س',
    note:'بصفحة الطلب اختر: «الحساب من نوع واتساب api (850 ر.س)».'},
  ineligible:{cls:'b-no',badge:'غير مؤهل الآن',title:'الحساب غير مؤهل حالياً',
@@ -466,6 +488,9 @@ function finish(){
     w.onclick=function(){gtag('event','wa_check_click_whatsapp',{verdict:d.v})};
     acts.appendChild(w);
   }
+
+  if(c.cost){$('v-cost-us').textContent=c.cost;$('v-cost').classList.remove('hide')}
+  else $('v-cost').classList.add('hide');
 
   if(c.note){$('v-note').textContent=c.note;$('v-note').classList.remove('hide')}
   else $('v-note').classList.add('hide');

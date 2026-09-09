@@ -15,7 +15,9 @@ assert.match(html, /<nav class="sticky" aria-label="إجراءات سريعة">/
 assert.match(html, /محتواي مزود خدمة مستقل/);
 assert.match(html, /لا نتبع Google/);
 assert.match(html, /لا يصح ضمانها/);
-assert.match(html, /يشمل ضريبة القيمة المضافة عند استحقاقها/);
-assert.doesNotMatch(html, /نضمن|مضمون.{0,20}(قبول|ترتيب)|المركز الأول مضمون/);
+assert.match(html, /690 ريال شامل ضريبة القيمة المضافة/);
+assert.doesNotMatch(html, /(?<!لا )نضمن|مضمون.{0,20}(قبول|ترتيب)|المركز الأول مضمون/);
 
+assert.equal((html.match(/href="#maps-quote"/g) || []).length,4);
+assert.match(html,/store-quote.js\?v=20260909-intake1" data-service="maps"/);
 console.log("maps landing smoke checks passed");

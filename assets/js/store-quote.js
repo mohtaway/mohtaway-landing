@@ -9,6 +9,7 @@
   const endpoint = 'https://app.mohtaway.com/api/public/service-leads';
   // Service-specific WEBPAGE/SUBMIT_LEAD_FORM actions; never a paid or qualified lead.
   const conversionTargets = {"stores": "AW-10937612701/Lbb6COnen_IcEJ3zut8o", "maps": "AW-10937612701/6YE7COzen_IcEJ3zut8o"};
+  const diagnosticTarget = 'G-CHVCDKS3NR';
   const storageKey = 'mw-service-request-v1:' + service;
   const uuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value || '');
   let persisted = {};
@@ -20,6 +21,7 @@
   let challengePromise;
   let pending = false;
   let trigger;
+  let diagnosticState = { opened: false, started: false };
   const persist = value => { try { sessionStorage.setItem(storageKey, JSON.stringify(value)); } catch (_) {} };
   persist(receipt || { requestId });
   const clean = value => String(value || '').replace(/[\r\n\[\]<>]/g, ' ').trim();
@@ -73,6 +75,49 @@
   const phone = form.elements.phone;
   const defaultSubmit = submit.textContent;
   phone.addEventListener('input', () => phone.setCustomValidity(''));
+
+  function diagnosticUrl(value) {
+    try {
+      const url = new URL(value);
+      return /^https?:$/.test(url.protocol) ? url.origin + url.pathname : '';
+    } catch (_) { return ''; }
+  }
+  function recordDiagnostic(eventName, errorKind) {
+    if (typeof window.gtag !== 'function') return false;
+    // Diagnostic events go only to GA4, with no field values, request/click IDs or URL queries.
+    const params = {
+      send_to: diagnosticTarget, service, form_id: id,
+      page_location: diagnosticUrl(location.href),
+      page_referrer: diagnosticUrl(document.referrer)
+    };
+    if (errorKind) params.error_kind = errorKind;
+    try { window.gtag('event', eventName, params); return true; }
+    catch (_) { return false; } // Analytics must never prevent intake or its retry.
+  }
+  function diagnosticErrorKind(error) {
+    if (error.status === 429) return 'rate_limit';
+    if (error.status === 409) return 'request_conflict';
+    if (error.code === 'challenge_expired' || error.code === 'invalid_challenge' || error.status === 425) return 'challenge';
+    if (error.status === 400 || error.status === 422) return 'invalid_fields';
+    if (error.status >= 500) return 'server';
+    if (error.message === 'receipt_invalid') return 'invalid_receipt';
+    return 'network_or_unknown';
+  }
+  function recordStart(event) {
+    if (pending || receipt || diagnosticState.started || !dialog.open) return;
+    if (!['name', 'phone', 'activity', 'need', 'budget', 'timing', 'city', 'mapStatus'].includes(event.target.name)) return;
+    diagnosticState.started = recordDiagnostic('service_form_start');
+  }
+  form.addEventListener('input', recordStart);
+  form.addEventListener('change', recordStart);
+  let validationErrorScheduled = false;
+  form.addEventListener('invalid', () => {
+    if (pending || receipt || validationErrorScheduled) return;
+    // Native validation can report several invalid fields during one submission attempt.
+    validationErrorScheduled = true;
+    recordDiagnostic('service_form_error', 'validation');
+    setTimeout(() => { validationErrorScheduled = false; }, 0);
+  }, true);
 
   function attribution() {
     let saved = {};
@@ -144,6 +189,7 @@
     if (!dialog.open) dialog.showModal();
     if (receipt) showReceipt();
     else {
+      if (!diagnosticState.opened) diagnosticState.opened = recordDiagnostic('service_form_open');
       if (!isMaps && !form.elements.need.value) {
         const intent = link.dataset.need || new URLSearchParams(location.search).get('service_intent');
         if (['new_store', 'improve_store'].includes(intent)) form.elements.need.value = intent;
@@ -154,6 +200,7 @@
   dialog.querySelector('.quote-new').addEventListener('click', () => {
     if (pending) return;
     requestId = crypto.randomUUID(); receipt = null; challenge = ''; challengeAt = 0;
+    diagnosticState = { opened: recordDiagnostic('service_form_open'), started: false };
     persist({ requestId }); form.reset(); help.hidden = true; fields.hidden = false; success.hidden = true; status.textContent = ''; delete status.dataset.state;
     form.elements.name.focus(); getChallenge(true).catch(() => {});
   });
@@ -162,6 +209,7 @@
     if (pending || receipt) return;
     phone.setCustomValidity(validPhone(phone.value) ? '' : 'أدخل رقم جوال سعودي صحيحًا، مثل 05xxxxxxxx.');
     if (!form.reportValidity()) return;
+    recordDiagnostic('service_form_submit');
     const values = new FormData(form);
     const payload = {
       requestId, service, name: clean(values.get('name')), phone: phoneDigits(values.get('phone')),
@@ -181,6 +229,7 @@
       receipt = { requestId, saved: true, isTest: data.isTest, eventRecorded: false };
       persist(receipt); recordSaved(data); showReceipt();
     } catch (error) {
+      recordDiagnostic('service_form_error', diagnosticErrorKind(error));
       status.dataset.state = 'error';
       if (error.status === 429) status.textContent = 'وصلت محاولات كثيرة خلال وقت قصير. انتظر قليلًا ثم أعد المحاولة.';
       else if (error.status === 409) status.textContent = 'يوجد طلب محفوظ بهذا المرجع بتفاصيل مختلفة. تواصل معنا على واتساب واذكر المرجع: MW-' + requestId;

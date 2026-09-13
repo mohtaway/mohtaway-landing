@@ -73,7 +73,7 @@ for(const service of ['stores','maps']){
  assert.equal(await count('service_form_submit'),2,'Retry counts once; concurrent duplicate does not');
  const saved=(await events()).filter(e=>e.name==='service_lead_saved');
  const conversions=(await events()).filter(e=>e.name==='conversion');
- assert.equal(saved.length,1);assert.equal(conversions.length,1);assert.equal(conversions[0].params.transaction_id,firstId);
+ assert.equal(saved.length,1);assert.equal(saved[0].params.send_to,'G-CHVCDKS3NR');assert.equal(saved[0].params.form_id,id);assert.equal(saved[0].params.page_location,base+(service==='maps'?'maps/':''));assert.equal(conversions.length,1);assert.equal(conversions[0].params.transaction_id,firstId);
  assert.equal(conversions[0].params.send_to,service==='stores'?'AW-10937612701/Lbb6COnen_IcEJ3zut8o':'AW-10937612701/6YE7COzen_IcEJ3zut8o');checks++;
  for(const e of await diagnostics()){
   assert.equal(e.params.send_to,'G-CHVCDKS3NR');assert.equal(e.params.service,service);assert.equal(e.params.form_id,id);
@@ -100,6 +100,21 @@ for(const service of ['stores','maps']){
  await page.evaluate(()=>{window.gtag=undefined;});
  await form.locator('.quote-submit').click();await form.locator('.quote-success').waitFor();
  assert.equal(await form.locator('.quote-status').innerText(),'تم حفظ طلبك بنجاح.','Unavailable analytics does not block saving');checks++;
+ const queued = await page.evaluate(service=>JSON.parse(sessionStorage.getItem('mw-service-request-v1:'+service)),service);
+ assert.deepEqual(queued.eventDispatch,{ga4:'queued',ads:'queued'});
+ const fallbackEvents=(await events()).filter(e=>e.params.transaction_id===queued.requestId);
+ assert.equal(fallbackEvents.filter(e=>e.name==='service_lead_saved').length,1);
+ assert.equal(fallbackEvents.filter(e=>e.name==='conversion').length,1);checks++;
+ // GA4 wrapper throws: durable success must survive and Ads must still queue once.
+ await form.locator('.quote-new').click();await fill();
+ await page.evaluate(()=>{window.gtag=function(){if(arguments[1]==='service_lead_saved')throw Error('QA_ANALYTICS_FAILURE');window.dataLayer.push(arguments);};});
+ await form.locator('.quote-submit').click();await form.locator('.quote-success').waitFor();
+ assert.equal(await form.locator('.quote-status').innerText(),'تم حفظ طلبك بنجاح.');
+ const partial=await page.evaluate(service=>JSON.parse(sessionStorage.getItem('mw-service-request-v1:'+service)),service);
+ assert.deepEqual(partial.eventDispatch,{ga4:'unknown',ads:'queued'});assert.equal(partial.eventRecorded,false);
+ assert.equal((await events()).filter(e=>e.name==='conversion'&&e.params.transaction_id===partial.requestId).length,1);
+ await page.reload({waitUntil:'networkidle'});await trigger.click();await form.locator('.quote-success').waitFor();
+ assert.equal((await events()).filter(e=>e.name==='conversion'||e.name==='service_lead_saved').length,0,'No blind replay of uncertain or legacy receipt on reload');checks++;
  await page.close();
 }
 console.log('PASS '+checks+' grouped checks: GA4-only diagnostics; no PII/URL queries; open/start deduplication; native validation; controlled failure codes; durable retry; no extra Ads conversions; reload/test isolation; analytics-independent saving. All production intake and analytics requests intercepted.');

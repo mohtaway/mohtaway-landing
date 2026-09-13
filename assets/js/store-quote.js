@@ -162,14 +162,32 @@
     url.searchParams.set('text', lines.join('\n'));
     whatsapp.href = url.toString();
   }
-  function recordSaved(data) {
-    if (data.isTest || !data.conversionEligible || receipt && receipt.eventRecorded) return;
-    // Only opaque deduplication reference and service: no customer fields or raw click identifiers.
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'service_lead_saved', { service, transaction_id: requestId });
-      if (conversionTargets[service]) window.gtag('event', 'conversion', { send_to: conversionTargets[service], transaction_id: requestId });
+  function queueSavedEvent(eventName, params) {
+    try {
+      if (typeof window.gtag === 'function') window.gtag('event', eventName, params);
+      else {
+        // Use the standard gtag queue if its wrapper has not loaded yet.
+        window.dataLayer = window.dataLayer || [];
+        (function () { window.dataLayer.push(arguments); })('event', eventName, params);
+      }
+      return 'queued'; // Queueing is not proof of delivery to Google.
+    } catch (_) {
+      // A throwing wrapper may have queued first; do not blindly replay it.
+      return 'unknown';
     }
-    receipt.eventRecorded = true;
+  }
+  function recordSaved(data) {
+    if (data.isTest || !data.conversionEligible || !receipt || receipt.eventRecorded || receipt.eventDispatch) return;
+    // One attempt per destination for this new receipt. Never replay persisted receipts.
+    receipt.eventDispatch = {};
+    receipt.eventDispatch.ga4 = queueSavedEvent('service_lead_saved', {
+      send_to: diagnosticTarget, service, form_id: id, transaction_id: requestId,
+      page_location: diagnosticUrl(location.href), page_referrer: diagnosticUrl(document.referrer)
+    });
+    receipt.eventDispatch.ads = conversionTargets[service]
+      ? queueSavedEvent('conversion', { send_to: conversionTargets[service], transaction_id: requestId })
+      : 'not_configured';
+    receipt.eventRecorded = receipt.eventDispatch.ga4 === 'queued' && receipt.eventDispatch.ads === 'queued';
     persist(receipt);
   }
   function setPending(value) {
@@ -227,7 +245,7 @@
       const data = await request(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (data.ok !== true || data.requestId !== requestId || data.service !== service || typeof data.isTest !== 'boolean' || typeof data.conversionEligible !== 'boolean') throw new Error('receipt_invalid');
       receipt = { requestId, saved: true, isTest: data.isTest, eventRecorded: false };
-      persist(receipt); recordSaved(data); showReceipt();
+      persist(receipt); showReceipt(); recordSaved(data);
     } catch (error) {
       recordDiagnostic('service_form_error', diagnosticErrorKind(error));
       status.dataset.state = 'error';

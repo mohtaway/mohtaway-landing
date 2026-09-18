@@ -259,6 +259,11 @@ gtag('js',new Date());gtag('config','G-CHVCDKS3NR');
 "use strict";
 var WA='https://wa.me/966533672708?text=';
 var PRODUCT='https://mohtaway.com/whatsapp-blue-badge-verification/p458938284';
+/* تمرير وسم الإعلان للمتجر والواتساب حتى تُنسب المبيعات لمصدرها */
+var QP=new URLSearchParams(location.search);
+var SRC=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid','ScCid','ttclid','fbclid'].filter(function(k){return QP.get(k)}).map(function(k){return k+'='+encodeURIComponent(QP.get(k))}).join('&');
+if(SRC)PRODUCT+='?'+SRC;
+var REF=QP.get('utm_source')?'\n[ref:'+QP.get('utm_source')+':'+(QP.get('utm_campaign')||'wa-check')+']':'';
 
 var QS=[
  {id:'q1',t:'وش نوع الواتساب اللي على رقم نشاطك؟',o:[
@@ -365,7 +370,7 @@ function waLink(vname){
   }
   if(A.shot)t+='• '+SHOT_Q+' '+label('shot',A.shot)+'\n';
   t+='\nوأرفق هنا لقطة شاشة الإعدادات 📎';
-  return WA+encodeURIComponent(t);
+  return WA+encodeURIComponent(t+REF);
 }
 
 function show(id){

@@ -166,6 +166,7 @@ window.mwWaDiagnosticsAllowed=function(){
 if(window.mwWaDiagnosticsAllowed()){
   gtag('js',new Date());
   gtag('config','G-CHVCDKS3NR',{page_location:location.origin+location.pathname,page_referrer:''});
+  gtag('config','AW-10937612701');
   var gaScript=document.createElement('script');gaScript.async=true;
   gaScript.src='https://www.googletagmanager.com/gtag/js?id=G-CHVCDKS3NR';document.head.appendChild(gaScript);
 }
@@ -282,6 +283,12 @@ if(permitted)['gclid','gbraid','wbraid','ScCid','ttclid','fbclid'].forEach(funct
 if(OUT.toString())PRODUCT+='?'+OUT.toString();
 var source=QP.get('utm_source')||'',campaign=QP.get('utm_campaign')||'wa-check';
 var REF=/^[a-zA-Z0-9_-]{1,40}$/.test(source)&&/^[a-zA-Z0-9_-]{1,120}$/.test(campaign)?'\n[ref:'+source+':'+campaign+']':'';
+function adsConv(){
+  try{
+    if(!window.mwWaDiagnosticsAllowed()||typeof gtag!=='function')return;
+    gtag('event','conversion',{send_to:'AW-10937612701/X4aJCJ714pIdEJ3zut8o',value:1,currency:'SAR',transport_type:'beacon'});
+  }catch(_){ /* Measurement must never interrupt navigation. */ }
+}
 function track(name,data){
   try{
     if(!window.mwWaDiagnosticsAllowed()||typeof gtag!=='function')return;
@@ -509,6 +516,7 @@ function finish(){
   a.onclick=function(){
     if(pay)track('wa_check_click_pay',{verdict:d.v});
     else track('wa_check_click_whatsapp',{verdict:d.v});
+    adsConv();
   };
   acts.appendChild(a);
 
@@ -516,7 +524,7 @@ function finish(){
     var w=document.createElement('a');
     w.className='btn btn-line';w.textContent='تبي تسأل أول؟ واتساب';
     w.href=waLink(VNAME[d.v]);w.target='_blank';w.rel='noopener';
-    w.onclick=function(){track('wa_check_click_whatsapp',{verdict:d.v})};
+    w.onclick=function(){track('wa_check_click_whatsapp',{verdict:d.v});adsConv()};
     acts.appendChild(w);
   }
 

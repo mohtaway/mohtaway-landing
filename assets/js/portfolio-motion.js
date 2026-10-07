@@ -29,7 +29,7 @@
         img.alt=slides[index][1]+(kind==='mobile'?' على الجوال':' على الكمبيوتر');
         img.className='portfolio-shot';img.decoding='async';img.draggable=false;
         img.fetchPriority=current<0?'high':'low';
-        img.src='assets/img/shot-'+slides[index][0]+'-'+kind+'.webp';
+        img.src='assets/img/shot-'+slides[index][0]+'-'+kind+'.webp?v=20261007b';
         await img.decode();
         if(!img.naturalWidth)throw Error('Empty portfolio image');
         return img;
